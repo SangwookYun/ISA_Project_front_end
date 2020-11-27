@@ -1,11 +1,9 @@
 // const base = "https://api-jasonandyun.herokuapp.com/"
 const base = "http://localhost:3000/"
-let testVarialbe;
-const renderingRestaurantInfo  = ()=> {
+
+const renderingRestaurantInfo_Main  = ()=> {
     mainPageSetup((result)=> {
-        console.log(result)
         let obj = JSON.parse(result);
-        console.log(obj)
         for(let i=1;i<=obj.length;i++) {
             let rest_name = "res_name_"+i;
             let rest_desc = "res_desc_"+i;
@@ -24,7 +22,6 @@ const mainPageSetup = (callback)=> {
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if(this.readyState==4 && this.status ==200) {
-            console.log("this is working");
             console.log(this.responseText)
             callback(this.responseText)        
         }
@@ -32,30 +29,32 @@ const mainPageSetup = (callback)=> {
     
 }
 
-const test= ()=>{
-    let xhttp = new XMLHttpRequest();
-    console.log("Working?")
-    xhttp.open("GET",base, true)
-    console.log("Working2?")
-    xhttp.send();
+const goToDetailPage =(id) => {
+    let url = './src/restaurant.html?button='+id;
+    window.location.href = url;
+    console.log(window.location.href);    
+}
+
+const addRestaurant = () => {
+    let xhttp= new XMLHttpRequest();
+    xhttp.open('POST', base, true)
+    let new_res_name = document.getElementById('new_res_name').value;
+    let new_res_phone =document.getElementById('new_res_phone').value;
+    let new_res_addr =document.getElementById('new_res_addr').value;
+    let new_res_desc =document.getElementById('new_res_desc').value;
+    let data = {
+        "restaurant_name": new_res_name,
+        "restaurant_phone": new_res_phone,
+        "restaurant_addr": new_res_addr,
+        "restaurant_desc": new_res_desc
+    }
+    
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data))
     xhttp.onreadystatechange = function() {
         if(this.readyState==4 && this.status ==200) {
-            console.log("this is working");
             console.log(this.responseText)
         }
     }
-
-
 }
-const goToDetailPage =(id) => {
-    console.log(id)
-    window.location.href = './src/restaurant.html'
-    console.log(id);
-    let a = document.getElementById('res_name_detail');
-    console.log(a);
-    testVarialbe = id;
-    console.log(testVarialbe)
-    
-    
-}
-window.onpageshow = renderingRestaurantInfo;
+window.onpageshow = renderingRestaurantInfo_Main;
