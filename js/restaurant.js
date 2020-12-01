@@ -1,5 +1,5 @@
 // const base = "https://api-jasonandyun.herokuapp.com/"
-const base = "http://localhost:3000/"
+const base = "http://localhost:3001/api/"
 
 const renderingRestaurantInfo_detail  = ()=> {
     detailPageSetup((result)=> {
@@ -23,8 +23,10 @@ const detailPageSetup = (callback)=> {
     let xhttp= new XMLHttpRequest();
     console.log("detailPage");
     
-    let parameter = window.location.href
+    let parameter = window.location.href    
     let restaurant_id = parameter.substring(parameter.length-1, parameter.length)
+    console.log(restaurant_id)
+    console.log(base+'restaurant/'+restaurant_id)
     xhttp.open('GET', base+'restaurant/'+restaurant_id, true)
     xhttp.send();
     xhttp.onreadystatechange = function() {
@@ -34,6 +36,35 @@ const detailPageSetup = (callback)=> {
         }
     }
     
+}
+
+const delete_restaurant_detail =() => {
+    let password = prompt('Are u a admin? please input 4 digit password')
+    if(password==1234) {
+        deleteRestaurant((result)=> {
+            console.log(result);
+        })
+        window.location.href="../index.html"
+    }else {
+        alert("You are not authorized. Thanks"s)
+    }
+    
+}
+
+const deleteRestaurant =(callback)=> {
+    let xhttp= new XMLHttpRequest();
+    console.log("Remove")
+    let parameter = window.location.href    
+    let restaurant_id = parameter.substring(parameter.length-1, parameter.length)
+
+    xhttp.open('DELETE', base+'restaurant/'+restaurant_id, true)
+    xhttp.send()
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            console.log(this.responseText)
+            callback(this.responseText)        
+        }
+    }
 }
 
 window.onpageshow = renderingRestaurantInfo_detail;

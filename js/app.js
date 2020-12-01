@@ -11,10 +11,7 @@ const renderingRestaurantInfo_Main  = ()=> {
             document.getElementById(rest_desc).innerText = obj[i-1].restaurant_desc;
         }
     })
-  
-    
 }
-
 const mainPageSetup = (callback)=> {
     let xhttp= new XMLHttpRequest();
     console.log("mainPageSetup");
@@ -30,14 +27,16 @@ const mainPageSetup = (callback)=> {
 }
 
 const goToDetailPage =(id) => {
-    let url = './src/restaurant.html?button='+id;
+    let get_id = id.substring(id.length-1, id.length) 
+    let url = './src/restaurant.html?'+get_id;
     window.location.href = url;
     console.log(window.location.href);    
 }
 
 const addRestaurant = () => {
     let xhttp= new XMLHttpRequest();
-    xhttp.open('POST', base, true)
+    xhttp.open('POST', base+'api/restaurant/', true)
+    console.log(base+'api/restaurant/')
     let new_res_name = document.getElementById('new_res_name').value;
     let new_res_phone =document.getElementById('new_res_phone').value;
     let new_res_addr =document.getElementById('new_res_addr').value;

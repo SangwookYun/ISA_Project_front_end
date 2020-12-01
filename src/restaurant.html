@@ -30,10 +30,22 @@
   </div>
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 id="res_name_detail">Hiel Cafe</h1>
-      <p id="res_desc_detail">A nice & cozy coffee shop! </p>
-      <p id="res_phone_detail">A nice & cozy coffee shop! </p>
-      <p id="res_addr_detail">A nice & cozy coffee shop! </p>
+      <div class="row">
+        <div class="col-lg-10">
+          <h1 id="res_name_detail"></h1>
+          <p id="res_desc_detail"></p>
+          <p id="res_phone_detail"> </p>
+          <p id="res_addr_detail"> </p>
+        </div>
+        <div class="col-lg-1">
+          <button class="btn btn-secondary">UPDATE</button>
+        </div>
+        <div class="col-lg-1">
+          <button id="btn_delete_detail" onclick = "delete_restaurant_detail()" class="btn btn-secondary">DELETE</button>
+        </div>
+        
+      </div>
+      
     </div>
   </div>
   <div class="container">
