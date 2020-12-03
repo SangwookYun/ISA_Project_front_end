@@ -56,6 +56,27 @@ body {
     text-align: center;
   }
   
+  .menu_box {
+    width:100%;
+    border: 1px solid black;
+    /* border-radius: 10px; */
+    color:black;
+    padding:20px;
+    margin:5px;
+
+  }
+  .menu_item {
+    float:left;
+    color:black;
+    font-weight: bold;
+  }
+  .menu_price {
+    float:right;
+    color:red;
+  }
+  .menu_description {
+    margin-top: 30px;
+  }
   @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {display: none;}
     .topnav a.icon {
