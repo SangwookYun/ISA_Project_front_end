@@ -30,19 +30,20 @@
   </div>
   <div class="jumbotron jumbotron-fluid theme">
     <div class="container">
-      <h1>"This is the Theme"</h1>
-      <p>Small Theme</p>
+      <h1  id="main_title"> JASON & YUN</h1>
+      <p id="main_desc">Find restaurant and cafe near by you</p>
+      <a id="main_admin" onclick="admin_open()">admin page</a>
     </div>
   </div>
   <div class="container main">
-      <div class="row">
+      <div class="row card_row">
           <div class="col-lg-4">
             <div class="card" style="width: 18rem;">
                 <img src="./img/restaurant1.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 id="res_name_1" class="card-title">Restaurant 1</h5>
                   <p id="res_desc_1" class="card-text">This is KEG restaurant. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button id="res_btn_1" onclick="goToDetailPage(this.id)" class="btn btn-primary">See Menu</button>
+                  <button id="res_btn_1" onclick="goToDetailPage(this.id)" class="btn btn-dark custom_see_menu">See Menu</button>
                 </div>
               </div>
           </div>
@@ -52,7 +53,7 @@
                 <div class="card-body">
                   <h5 id="res_name_2"class="card-title">Restaurant 2</h5>
                   <p id="res_desc_2" class="card-text">This is Japanese restaurant. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button id="res_btn_2" onclick="goToDetailPage(this.id)" class="btn btn-primary">See Menu</button>
+                  <button id="res_btn_2" onclick="goToDetailPage(this.id)" class="btn btn-dark custom_see_menu">See Menu</button>
                 </div>
               </div>
           </div>
@@ -62,14 +63,15 @@
                 <div class="card-body">
                   <h5 id="res_name_3" class="card-title">Restaurant 3</h5>
                   <p id="res_desc_3" class="card-text">This is Korean restaurant. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <button id="res_btn_3" onclick="goToDetailPage(this.id)" class="btn btn-primary">See Menu</button>
+                  <button id="res_btn_3" onclick="goToDetailPage(this.id)" class="btn btn-dark custom_see_menu">See Menu</button>
                 </div>
               </div>
           </div>
       </div>
+      
       <div class ="row" style="margin-top: 30px;">
           <div class="col-lg-12" style="text-align: center;">
-              <Button id="btn_add_res" data-toggle="modal" data-target="#exampleModal" class = "btn btn-primary">ADD</Button>
+              
 
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -109,6 +111,62 @@
               </div>
           </div>
       </div>
+  </div>
+  
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div id = "remove_detail" class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "remove_detail_modal">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <div id= "admin_modal_index" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">This is Admin Page</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>What do you want to do?</p>
+          <Button id="btn_add_res" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal" class = "btn btn-primary">ADD</Button>
+            <Button id="btn_remove_res" data-toggle="modal"  data-dismiss="modal" data-target="remove_detail" onclick = "delete_restaurant_shows_all()" data-dismiss="modal" class = "btn btn-primary">REMOVE</Button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="hidden_modal_for_admin" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <Button id="admin_modal_btn" data-toggle="modal" data-target="#admin_modal_index" class = "btn btn-primary">ADD</Button>
+        <button id="remove_modal_btn" type="button" data-target ="#remove_detail" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"></button>
+    </div>
+        
   </div>
   <div class="footer">
     <p>Footer</p>

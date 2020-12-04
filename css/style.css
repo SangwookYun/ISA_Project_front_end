@@ -7,7 +7,17 @@ body {
     height:100%;
     min-height:100vh;
   }
-  
+
+#main_title, #main_desc {
+  text-align: center;
+}
+#main_admin {
+  float:right;
+}
+.card_row {
+  margin:auto;
+}
+
   .topnav {
     overflow: hidden;
     background-color: #333;
@@ -76,6 +86,23 @@ body {
   }
   .menu_description {
     margin-top: 30px;
+  }
+
+  .custom_see_menu {
+    margin:auto;
+    display:block;
+  }
+  .remove_btn {
+    display:inline-block;
+    background-color:cornflowerblue;
+    color:white;
+    margin:3px auto;
+
+
+  }
+  .menu_btn {
+    font-size:15px;
+    
   }
   @media screen and (max-width: 600px) {
     .topnav a:not(:first-child) {display: none;}

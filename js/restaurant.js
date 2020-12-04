@@ -69,9 +69,7 @@ const detailPageSetup = (callback)=> {
 }
 
 const detailPageSetup_menu = (callback)=> {
-    let xhttp= new XMLHttpRequest();
-    console.log("detailPage");
-    
+    let xhttp= new XMLHttpRequest();    
     let parameter = window.location.href    
     let restaurant_id = parameter.substring(parameter.length-1, parameter.length)
     xhttp.open('GET', base+'menu/'+restaurant_id, true)
@@ -85,27 +83,30 @@ const detailPageSetup_menu = (callback)=> {
     
 }
 
-const delete_restaurant_detail =() => {
-    let password = prompt('Are u a admin? please input 4 digit password')
-    if(password==1234) {
-        deleteRestaurant((result)=> {
-            console.log(result);
-        })
-        window.location.href="../index.html"
-    }else {
-        alert("You are not authorized. Thanks")
-    }
-    
+const add_menu = () => {
+    add_menu_handler((result)=> {
+        console.log(result)
+    })
 }
 
-const deleteRestaurant =(callback)=> {
-    let xhttp= new XMLHttpRequest();
-    console.log("Remove")
-    let parameter = window.location.href    
-    let restaurant_id = parameter.substring(parameter.length-1, parameter.length)
+const add_menu_handler = (callback) => {
+    let xhttp=new XMLHttpRequest();   
+    let parameter = window.location.href;
+    let restaurant_id = parameter.substring(parameter.length-1, parameter.length);
+    xhttp.open('POST', base+'menu/'+restaurant_id, true)
 
-    xhttp.open('DELETE', base+'restaurant/'+restaurant_id, true)
-    xhttp.send()
+    let new_menu_name = document.getElementById('new_menu_name').value;
+    let new_menu_amount =document.getElementById('new_menu_amount').value;
+    let new_menu_desc =document.getElementById('new_menu_desc').value;    
+    let data = {
+        "restaurant_id":restaurant_id,
+        "menu_name": new_menu_name,
+        "menu_amount": new_menu_amount,
+        "menu_desc": new_menu_desc
+    }
+    console.log(restaurant_id)
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data))
     xhttp.onreadystatechange = function() {
         if(this.readyState==4 && this.status ==200) {
             console.log(this.responseText)
@@ -114,4 +115,70 @@ const deleteRestaurant =(callback)=> {
     }
 }
 
+const delete_menu = () => {
+    console.log("delete menu")
+    delete_menu_show_all_handler((res)=> {
+        res  = JSON.parse(res)
+        console.log(res)
+        if(document.getElementById('btn_container_remove_menu')) {
+            let temp = document.getElementById('btn_container_remove_menu')
+            document.getElementById('remove_detail_modal_menu').removeChild(temp);
+        }
+
+        
+        let btn_container = document.createElement('div');
+        btn_container.id = 'btn_container_remove_menu'
+        
+        for(let i =0;i<res.length;i++) {
+            let btn = document.createElement('Button');
+            btn.innerText = res[i]['items']
+            btn.classList.add('remove_btn')
+            btn_container.append(btn);
+            btn.id='btn_'+res[i]['menuid'];
+            btn.addEventListener('click', function() {
+                console.log(this.id);
+                let target = this.id
+                delete_menu_by_id(target);
+            })
+        }    
+        document.getElementById('remove_detail_modal_menu').append(btn_container)
+
+     
+
+    })
+}
+const delete_menu_show_all_handler = (callback) => {
+    let xhttp=new XMLHttpRequest();   
+    let parameter = window.location.href;
+    let restaurant_id = parameter.substring(parameter.length-1, parameter.length);
+    xhttp.open('GET', base+'menu/del/all/'+restaurant_id, true)
+    xhttp.send()
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            
+            callback(this.responseText)        
+        }
+    }
+
+}
+
+const delete_menu_by_id = (target) => {
+    delete_menu_by_id_handler(target, (result)=> {
+        console.log(result);
+    })
+}
+const delete_menu_by_id_handler = (target, callback) => {
+    console.log(target);
+    xhttp = new XMLHttpRequest();
+    let parameter = target.substring(target.length-1, target.length);
+    xhttp.open('DELETE', base+'menu/'+parameter, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            callback(this.responseText)        
+        }
+    }
+}
+
 window.onpageshow = renderingRestaurantInfo_detail;
+
