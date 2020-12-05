@@ -1,4 +1,5 @@
 // const base = "https://api-jasonandyun.herokuapp.com/"
+let login_user = localStorage.getItem('login_user')==undefined? localStorage.getItem('login_user'):false;
 const base = "http://localhost:3000/"
 
 const renderingRestaurantInfo_Main  = ()=> {
@@ -27,10 +28,15 @@ const mainPageSetup = (callback)=> {
 }
 
 const goToDetailPage =(id) => {
-    let get_id = id.substring(id.length-1, id.length) 
-    let url = './src/restaurant.html?'+get_id;
-    window.location.href = url;
-    console.log(window.location.href);    
+    if(login_user) {
+        let get_id = id.substring(id.length-1, id.length) 
+        let url = './src/restaurant.html?'+get_id;
+        window.location.href = url;
+        console.log(window.location.href);    
+    }else {
+        alert("Please login first")
+    }
+    
 }
 
 const addRestaurant = () => {
@@ -141,5 +147,107 @@ const delete_restaurant_by_id =(id, callback)=> {
     }
 }
 
+const login= ()=> {
+    document.getElementById("login_btn").click();        
+}
 
+const signup= () => {
+    document.getElementById('signup_btn').click();
+}
+const login_submit = ()=> {
+    login_handler((result)=> {
+        if(result=='password wrong') {
+            document.getElementById('login_close_btn').click();
+            alert('password wrong')
+        }else {
+            document.getElementById('login_close_btn').click();
+            login_user=true;
+            localStorage.setItem("login_user", login_user);
+            console.log(result);
+            console.log(JSON.parse(result))
+            console.log(JSON.parse(result)[0])
+            let name = JSON.parse(result)[0];
+            document.getElementById('user_name').innerText = "Welcome "+name['userid'];
+
+            alert('Login success')
+
+        }
+    })
+}
+
+const login_handler = (callback)=> {
+    let xhttp = new XMLHttpRequest();
+    let userid = document.getElementById('login_id').value;
+    let password = document.getElementById('login_password').value;
+    console.log(userid)
+    console.log(password)
+    xhttp.open('GET', base+'api/user/'+userid+"&"+password);
+    xhttp.send()
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            
+            callback(this.responseText)        
+        }
+    }
+}
+
+
+const check_duplicate_id =() => {
+    duplicate_id_handler((result)=> {
+        console.log(result=="true");
+        if(result=="true") {
+            console.log(result);
+            alert("Change your id")
+        }else {
+            console.log(result);
+            document.getElementById("duplicate_id_check").innerText = "done";
+        }
+    })
+}
+const duplicate_id_handler = (callback) => {
+    let xhttp = new XMLHttpRequest();
+    let userid = document.getElementById('signup_id').value;
+    console.log(userid)
+    xhttp.open('GET', base+'api/user/signup/'+userid);
+    xhttp.send()
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            
+            callback(this.responseText)        
+        }
+    }
+
+}
+const signup_submit =() => {
+    console.log(document.getElementById('duplicate_id_check').innerHTML)
+    if(document.getElementById('duplicate_id_check').innerHTML=="done") {
+        signup_submit_handler((result)=> {
+            console.log(result);
+        })
+    }else {
+        alert("Do duplicate check first")
+        
+    }
+}
+
+const signup_submit_handler = (callback)=> {
+    let xhttp = new XMLHttpRequest();
+    let userid = document.getElementById('signup_id').value;
+    let password = document.getElementById('signup_password').value;
+    console.log(userid)
+    console.log(password)
+    xhttp.open('POST', base+'api/user/new/signup')
+    let data = {
+        "new_id" : userid,
+        "new_password": password
+    }
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data))
+    xhttp.onreadystatechange = function() {
+        if(this.readyState==4 && this.status ==200) {
+            console.log(this.responseText)
+            callback(this.responseText);
+        }
+    }
+}
 window.onpageshow = renderingRestaurantInfo_Main;

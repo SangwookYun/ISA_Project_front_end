@@ -1,4 +1,7 @@
 // const base = "https://api-jasonandyun.herokuapp.com/"
+let user_login = localStorage.getItem('login_user')
+localStorage.setItem('login_user', 'true')
+console.log(user_login)
 const base = "http://localhost:3000/api/"
 
 const renderingRestaurantInfo_detail  = ()=> {
