@@ -32,7 +32,12 @@
     <div class="container">
       <h1  id="main_title"> JASON & YUN</h1>
       <p id="main_desc">Find restaurant and cafe near by you</p>
-      <a id="main_admin" onclick="admin_open()">admin page</a>
+      <div id="user_name"></div>
+      <div id="admin_login_wrapper"> 
+        <a id="main_admin" onclick="admin_open()">admin page</a>
+        <a id="login" onclick="login()">Login</a>     /   <a id="signup" onclick="signup()">signup</a>
+      </div>
+      
     </div>
   </div>
   <div class="container main">
@@ -164,12 +169,87 @@
   <div id="hidden_modal_for_admin" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <Button id="admin_modal_btn" data-toggle="modal" data-target="#admin_modal_index" class = "btn btn-primary">ADD</Button>
-        <button id="remove_modal_btn" type="button" data-target ="#remove_detail" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"></button>
+        <button id="remove_modal_btn" type="button" data-target ="#remove_detail" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong"></button>        
+        <button id="login_btn" type="button" data-target="#login_modal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
+        <button id="signup_btn" type="button" data-target="#signup_modal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
     </div>
         
   </div>
+
+<!-- Modal -->
+<div class="modal fade" id="signup_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Signup</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form>
+          <div class="form-group">
+            <label id = "new_user_id_signup" for="exampleInputEmail1">id</label>
+            <input type="id" class="form-control" id="signup_id" aria-describedby="emailHelp" placeholder="Enter id">
+            <button type="button" class="btn btn-primary" onclick = "check_duplicate_id()">Check Duplicate id</button>
+            <p id = "duplicate_id_check">Not Done</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="signup_password" placeholder="Password">
+          </div>
+        </form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button id ="signup_close_btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id = "signup_submit_btn" type="button" class="btn btn-primary" onclick = "signup_submit()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">id</label>
+            <input type="id" class="form-control" id="login_id" aria-describedby="emailHelp" placeholder="Enter id">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="login_password" placeholder="Password">
+          </div>
+        </form>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button id ="login_close_btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick = "login_submit()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div class="footer">
     <p>Footer</p>
   </div>
+ 
 </body>
 </html> 

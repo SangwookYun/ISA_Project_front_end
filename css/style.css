@@ -11,9 +11,13 @@ body {
 #main_title, #main_desc {
   text-align: center;
 }
-#main_admin {
+#admin_login_wrapper {
   float:right;
 }
+#main_admin{
+  display: block;
+}
+
 .card_row {
   margin:auto;
 }
@@ -74,6 +78,11 @@ body {
     padding:20px;
     margin:5px;
 
+  }
+  #user_name {
+    text-align: center;
+    font-weight: bold;
+    font-size:25px;
   }
   .menu_item {
     float:left;
