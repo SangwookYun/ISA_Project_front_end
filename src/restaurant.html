@@ -42,7 +42,7 @@
         
       </div>
       <div class="col-lg-2">
-        <button class="btn btn-secondary menu_btn">UPDATE MENU</button>
+        <button onclick = "update_menu()" class="btn btn-secondary menu_btn">UPDATE MENU</button>
       </div>
       <div class="col-lg-2">
         <button id="btn_delete_detail" onclick = "delete_menu()" data-toggle="modal" data-target="#remove_detail_menu"  class="btn btn-secondary menu_btn">DELETE MENU</button>
@@ -110,6 +110,92 @@
         </div>
     </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div id = "update_menu_modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "remove_detail_modal">
+        <div id = "update_detail_modal_menu"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id = "update_menu_modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "remove_detail_modal">
+        <div id = "update_detail_modal_menu"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id = "update_menu_modal_detail" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id = "remove_detail_modal">
+        
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Menu Name</label>
+            <input type="text" class="form-control" id="update_menu_name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Amount</label>
+            <input type="text" class = "form-control" id="update_menu_amount"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Menu description</label>
+            <textarea class = "form-control" id="update_menu_desc"></textarea>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" onclick ="update_menu_detail_final()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="hidden_modal_for_restaurant" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <button id="update_menu" type="button" data-target="#update_menu_modal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
+      <button id="update_menu_detail" type="button" data-target="#update_menu_modal_detail" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>
+  </div>
 </div>
 
   <div id="menu_container" class="container">

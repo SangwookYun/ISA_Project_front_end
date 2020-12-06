@@ -1,10 +1,10 @@
-// const base = "https://api-jasonandyun.herokuapp.com/api/v1/"
+const base = "https://api-jasonandyun.herokuapp.com/api/v1/"
 let login_user = localStorage.getItem('login_user') == undefined ? localStorage.getItem('login_user') : false;
 let token;
 let AuthStr;
 
 
-const base = "http://localhost:3000/api/v1/"
+// const base = "http://localhost:3000/api/v1/"
 const renderingRestaurantInfo_Main = () => {
     mainPageSetup((result) => {
         let obj = JSON.parse(result);
@@ -70,7 +70,7 @@ const addRestaurant = () => {
 }
 
 const admin_open = () => {
-    let password = prompt('Are u a admin? please input 4 digit password')
+    let password = prompt('Enter 4 digit password. (ANSWER : 1234)' ) 
     if (password == 1234) {
         document.getElementById("admin_modal_btn").click();
     } else {
@@ -105,7 +105,7 @@ const delete_restaurant_shows_all = () => {
             btn.addEventListener('click', function() {
                 console.log(this.id);
                 let target = this.id
-                handler_deletion_restaurant(1)
+                handler_deletion_restaurant(target)
             })
         }
 
@@ -117,10 +117,10 @@ const delete_restaurant_shows_all = () => {
 }
 
 const delete_restaurant = (callback) => {
+    console.log("this is called? ")
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', base + 'restaurant/all', true)
-
-    xhttp.send()
+    xhttp.open('GET', base + 'restaurant/all/rest', true)
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             callback(this.responseText)
@@ -143,9 +143,9 @@ const delete_restaurant_by_id = (id, callback) => {
     console.log(this);
     // let parameter = window.location.href    
     let restaurant_id = id.substring(id.length - 1, id.length)
-
+    console.log(restaurant_id)
     xhttp.open('DELETE', base + 'restaurant/' + restaurant_id, true)
-    xhttp.send()
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
