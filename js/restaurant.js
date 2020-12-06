@@ -89,15 +89,14 @@ const detailPageSetup_menu = (callback) => {
 
 const add_menu = () => {
     add_menu_handler((result) => {
+        location.reload()
         console.log(result)
     })
 }
 
 const add_menu_handler = (callback) => {
-    let xhttp = new XMLHttpRequest();
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
-
     let new_menu_name = document.getElementById('new_menu_name').value;
     let new_menu_amount = document.getElementById('new_menu_amount').value;
     let new_menu_desc = document.getElementById('new_menu_desc').value;
@@ -155,7 +154,7 @@ const delete_menu = () => {
 
     })
 }
-const delete_menu_show_all_handler = (callback) => { // TODO UPDATE XHTTP CALL /menu/all/:restaurantid
+const delete_menu_show_all_handler = (callback) => {
     let xhttp = new XMLHttpRequest();
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
@@ -172,6 +171,7 @@ const delete_menu_show_all_handler = (callback) => { // TODO UPDATE XHTTP CALL /
 
 const delete_menu_by_id = (target) => {
     delete_menu_by_id_handler(target, (result) => {
+        location.reload()
         console.log(result);
     })
 }
@@ -180,6 +180,7 @@ const delete_menu_by_id_handler = (target, callback) => {
     xhttp = new XMLHttpRequest();
     let parameter = target.substring(target.length - 1, target.length);
     xhttp.open('DELETE', base + 'menu/' + parameter, true);
+    xhttp.setRequestHeader("Authorization", AuthStr)
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
