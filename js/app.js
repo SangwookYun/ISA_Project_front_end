@@ -21,7 +21,8 @@ const mainPageSetup = (callback) => {
     console.log("mainPageSetup");
     xhttp.open('GET', base + "restaurant/", true)
     xhttp.setRequestHeader("Authorization", AuthStr)
-        // xhttp.send({ headers: { Authorization: AuthStr } });
+
+    // xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -120,7 +121,8 @@ const delete_restaurant = (callback) => {
     console.log("this is called? ")
     let xhttp = new XMLHttpRequest();
     xhttp.open('GET', base + 'restaurant/all/rest', true)
-    xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.setRequestHeader("Authorization", AuthStr)
+        // xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             callback(this.responseText)
@@ -145,7 +147,8 @@ const delete_restaurant_by_id = (id, callback) => {
     let restaurant_id = id.substring(id.length - 1, id.length)
     console.log(restaurant_id)
     xhttp.open('DELETE', base + 'restaurant/' + restaurant_id, true)
-    xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.setRequestHeader("Authorization", AuthStr)
+        // xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
