@@ -20,8 +20,8 @@ const mainPageSetup = (callback) => {
     let xhttp = new XMLHttpRequest();
     console.log("mainPageSetup");
     xhttp.open('GET', base + "restaurant/", true)
-
-    xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.setRequestHeader(Authorization, AuthStr)
+        // xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -70,7 +70,7 @@ const addRestaurant = () => {
 }
 
 const admin_open = () => {
-    let password = prompt('Enter 4 digit password. (ANSWER : 1234)' ) 
+    let password = prompt('Enter 4 digit password. (ANSWER : 1234)')
     if (password == 1234) {
         document.getElementById("admin_modal_btn").click();
     } else {

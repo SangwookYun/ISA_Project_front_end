@@ -2,7 +2,7 @@ const base = "https://api-jasonandyun.herokuapp.com/api/v1/"
 let user_login = localStorage.getItem('login_user')
 localStorage.setItem('login_user', 'true')
 console.log(user_login)
-// const base = "http://localhost:3000/api/v1/"
+    // const base = "http://localhost:3000/api/v1/"
 const AuthStr = localStorage.getItem('token')
 
 const renderingRestaurantInfo_detail = () => {
@@ -61,7 +61,7 @@ const detailPageSetup = (callback) => {
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length)
     console.log(restaurant_id)
     console.log(base + 'restaurant/' + restaurant_id)
-    
+
     xhttp.open('GET', base + 'restaurant/' + restaurant_id, true)
     xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
@@ -160,6 +160,7 @@ const delete_menu_show_all_handler = (callback) => {
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
     xhttp.open('GET', base + 'menu/all/' + restaurant_id, true)
+    xhttp.setRequestHeader(Authorization, AuthStr)
     xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -192,7 +193,7 @@ const delete_menu_by_id_handler = (target, callback) => {
 
 const update_menu = () => {
     document.getElementById('update_menu').click();
-    detailPageSetup_menu((result)=> {
+    detailPageSetup_menu((result) => {
         res = JSON.parse(result)
         console.log(res)
         if (document.getElementById('btn_container_update_menu')) {
@@ -224,13 +225,13 @@ let target_menu_id;
 const update_menu_by_id = (target) => {
     document.getElementById("update_detail_modal_menu").click();
     document.getElementById("update_menu_detail").click();
-    target_menu_id=  target;
-    
+    target_menu_id = target;
+
 }
 
 const update_menu_detail_final = () => {
     target = target_menu_id;
-    update_menu_by_id_handler(target, (result)=> {
+    update_menu_by_id_handler(target, (result) => {
         console.log(result)
     })
 }
@@ -242,7 +243,7 @@ const update_menu_by_id_handler = (target, callback) => {
     let parameter = target.substring(target.length - 1, target.length);
     let restaurant_id = window.location.href
     let res_id = restaurant_id.substring(restaurant_id.length - 1, restaurant_id.length)
-    
+
     let data = {
         "menuid": parameter,
         "restaurant_id": res_id,
