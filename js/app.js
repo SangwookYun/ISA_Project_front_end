@@ -19,9 +19,9 @@ const renderingRestaurantInfo_Main = () => {
 const mainPageSetup = (callback) => {
     let xhttp = new XMLHttpRequest();
     console.log("mainPageSetup");
-    xhttp.open('GET', base+"restaurant/", true)
+    xhttp.open('GET', base + "restaurant/", true)
 
-    xhttp.send({headers: {Authorization: AuthStr}});
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -54,41 +54,19 @@ const addRestaurant = () => {
         "restaurant_addr": new_res_addr,
         "restaurant_desc": new_res_desc,
     }
-    fetch(base+'restaurant/', {
-        method:'POST',
+    fetch(base + 'restaurant/', {
+        method: 'POST',
         headers: {
-            'Authorization': AuthStr, 
-            "Content-Type": "application/json;charset=UTF-8",
-             
+            Authorization: AuthStr,
+            "Content-Type": "application/json",
+
         },
-        mode: "cors", 
-        body: data
-    }).then((result)=> {
+        mode: "cors",
+        body: JSON.stringify(data)
+    }).then((result) => {
         console.log(result)
     })
-    // let xhttp = new XMLHttpRequest();
-    // xhttp.open('POST', base + 'restaurant/', true)
-    // let new_res_name = document.getElementById('new_res_name').value;
-    // let new_res_phone = document.getElementById('new_res_phone').value;
-    // let new_res_addr = document.getElementById('new_res_addr').value;
-    // let new_res_desc = document.getElementById('new_res_desc').value;
-    // let data = {
-    //     "restaurant_name": new_res_name,
-    //     "restaurant_phone": new_res_phone,
-    //     "restaurant_addr": new_res_addr,
-    //     "restaurant_desc": new_res_desc,
-    // }
-    // console.log(AuthStr)
 
-    // xhttp.setRequestHeader('Authorization', AuthStr)
-    // xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    // console.log(JSON.stringify(data))
-    // xhttp.send(JSON.stringify(data))
-    // xhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         console.log(this.responseText)
-    //     }
-    // }
 }
 
 const admin_open = () => {
@@ -127,7 +105,7 @@ const delete_restaurant_shows_all = () => {
             btn.addEventListener('click', function() {
                 console.log(this.id);
                 let target = this.id
-                handler_deletion_restaurant(target)
+                handler_deletion_restaurant(1)
             })
         }
 
@@ -138,9 +116,9 @@ const delete_restaurant_shows_all = () => {
 
 }
 
-const delete_restaurant = (callback) => { // TODO: UPDATE XHTTP CALL
+const delete_restaurant = (callback) => {
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', base + 'restaurant/del/all', true)
+    xhttp.open('GET', base + 'restaurant/all', true)
 
     xhttp.send()
     xhttp.onreadystatechange = function() {
@@ -154,7 +132,8 @@ const delete_restaurant = (callback) => { // TODO: UPDATE XHTTP CALL
 
 const handler_deletion_restaurant = (id) => {
     delete_restaurant_by_id(id, (result) => {
-
+        console.log('success')
+        alert("success")
     })
 
 }
@@ -191,11 +170,12 @@ const login_submit = () => {
             document.getElementById('login_close_btn').click();
             login_user = true;
             localStorage.setItem("login_user", login_user);
-            token = JSON.parse(result)['token'];   //
+            token = JSON.parse(result)['token']; //
             console.log(token)
             authHeader = 'JWT '
             AuthStr = authHeader.concat(token)
             console.log(AuthStr)
+            localStorage.setItem('token', AuthStr);
             alert('Login success')
 
         }

@@ -3,6 +3,7 @@ let user_login = localStorage.getItem('login_user')
 localStorage.setItem('login_user', 'true')
 console.log(user_login)
 const base = "http://localhost:3000/api/v1/"
+const AuthStr = localStorage.getItem('token')
 
 const renderingRestaurantInfo_detail = () => {
     detailPageSetup((result) => {
@@ -75,7 +76,7 @@ const detailPageSetup_menu = (callback) => {
     let xhttp = new XMLHttpRequest();
     let parameter = window.location.href
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length)
-    xhttp.open('GET', base + 'menu/' + restaurant_id, true)
+    xhttp.open('GET', base + 'menu/all/' + restaurant_id, true)
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -96,7 +97,6 @@ const add_menu_handler = (callback) => {
     let xhttp = new XMLHttpRequest();
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
-    xhttp.open('POST', base + 'menu/' + restaurant_id, true)
 
     let new_menu_name = document.getElementById('new_menu_name').value;
     let new_menu_amount = document.getElementById('new_menu_amount').value;
@@ -107,15 +107,20 @@ const add_menu_handler = (callback) => {
         "menu_amount": new_menu_amount,
         "menu_desc": new_menu_desc
     }
-    console.log(restaurant_id)
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.send(JSON.stringify(data))
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText)
-            callback(this.responseText)
-        }
-    }
+    fetch(base + 'menu/rest/' + restaurant_id, {
+        method: 'POST',
+        headers: {
+            Authorization: AuthStr,
+            "Content-Type": "application/json",
+
+        },
+        mode: "cors",
+        body: JSON.stringify(data)
+    }).then((result) => {
+        console.log(result)
+        callback(result)
+    })
+
 }
 
 const delete_menu = () => {
@@ -154,7 +159,7 @@ const delete_menu_show_all_handler = (callback) => { // TODO UPDATE XHTTP CALL /
     let xhttp = new XMLHttpRequest();
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
-    xhttp.open('GET', base + 'menu/del/all/' + restaurant_id, true)
+    xhttp.open('GET', base + 'menu/all/' + restaurant_id, true)
     xhttp.send()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
