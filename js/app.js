@@ -1,7 +1,10 @@
 // const base = "https://api-jasonandyun.herokuapp.com/api/v1/"
 let login_user = localStorage.getItem('login_user') == undefined ? localStorage.getItem('login_user') : false;
-const base = "http://localhost:3000/api/v1/"
+let token;
+let AuthStr;
 
+
+const base = "http://localhost:3000/api/v1/"
 const renderingRestaurantInfo_Main = () => {
     mainPageSetup((result) => {
         let obj = JSON.parse(result);
@@ -16,8 +19,9 @@ const renderingRestaurantInfo_Main = () => {
 const mainPageSetup = (callback) => {
     let xhttp = new XMLHttpRequest();
     console.log("mainPageSetup");
-    xhttp.open('GET', base, true)
-    xhttp.send();
+    xhttp.open('GET', base+"restaurant/", true)
+
+    xhttp.send({headers: {Authorization: AuthStr}});
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -40,9 +44,6 @@ const goToDetailPage = (id) => {
 }
 
 const addRestaurant = () => {
-    let xhttp = new XMLHttpRequest();
-    xhttp.open('POST', base + 'api/restaurant/', true)
-    console.log(base + 'restaurant/')
     let new_res_name = document.getElementById('new_res_name').value;
     let new_res_phone = document.getElementById('new_res_phone').value;
     let new_res_addr = document.getElementById('new_res_addr').value;
@@ -51,16 +52,43 @@ const addRestaurant = () => {
         "restaurant_name": new_res_name,
         "restaurant_phone": new_res_phone,
         "restaurant_addr": new_res_addr,
-        "restaurant_desc": new_res_desc
+        "restaurant_desc": new_res_desc,
     }
+    fetch(base+'restaurant/', {
+        method:'POST',
+        headers: {
+            'Authorization': AuthStr, 
+            "Content-Type": "application/json;charset=UTF-8",
+             
+        },
+        mode: "cors", 
+        body: data
+    }).then((result)=> {
+        console.log(result)
+    })
+    // let xhttp = new XMLHttpRequest();
+    // xhttp.open('POST', base + 'restaurant/', true)
+    // let new_res_name = document.getElementById('new_res_name').value;
+    // let new_res_phone = document.getElementById('new_res_phone').value;
+    // let new_res_addr = document.getElementById('new_res_addr').value;
+    // let new_res_desc = document.getElementById('new_res_desc').value;
+    // let data = {
+    //     "restaurant_name": new_res_name,
+    //     "restaurant_phone": new_res_phone,
+    //     "restaurant_addr": new_res_addr,
+    //     "restaurant_desc": new_res_desc,
+    // }
+    // console.log(AuthStr)
 
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.send(JSON.stringify(data))
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText)
-        }
-    }
+    // xhttp.setRequestHeader('Authorization', AuthStr)
+    // xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // console.log(JSON.stringify(data))
+    // xhttp.send(JSON.stringify(data))
+    // xhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         console.log(this.responseText)
+    //     }
+    // }
 }
 
 const admin_open = () => {
@@ -163,12 +191,11 @@ const login_submit = () => {
             document.getElementById('login_close_btn').click();
             login_user = true;
             localStorage.setItem("login_user", login_user);
-            console.log(result);
-            console.log(JSON.parse(result))
-            console.log(JSON.parse(result)[0])
-            let name = JSON.parse(result)[0];
-            document.getElementById('user_name').innerText = "Welcome " + name['userid'];
-
+            token = JSON.parse(result)['token'];   //
+            console.log(token)
+            authHeader = 'JWT '
+            AuthStr = authHeader.concat(token)
+            console.log(AuthStr)
             alert('Login success')
 
         }
