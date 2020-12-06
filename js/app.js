@@ -20,7 +20,7 @@ const mainPageSetup = (callback) => {
     let xhttp = new XMLHttpRequest();
     console.log("mainPageSetup");
     xhttp.open('GET', base + "restaurant/", true)
-    xhttp.setRequestHeader(Authorization, AuthStr)
+    xhttp.setRequestHeader("Authorization", AuthStr)
         // xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
