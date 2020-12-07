@@ -63,8 +63,7 @@ const detailPageSetup = (callback) => {
     console.log(base + 'restaurant/' + restaurant_id)
 
     xhttp.open('GET', base + 'restaurant/' + restaurant_id, true)
-    xhttp.setRequestHeader("Authorization", AuthStr)
-        // xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -79,8 +78,7 @@ const detailPageSetup_menu = (callback) => {
     let parameter = window.location.href
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length)
     xhttp.open('GET', base + 'menu/all/' + restaurant_id, true)
-    xhttp.setRequestHeader("Authorization", AuthStr)
-        // xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText)
@@ -162,8 +160,7 @@ const delete_menu_show_all_handler = (callback) => {
     let parameter = window.location.href;
     let restaurant_id = parameter.substring(parameter.length - 1, parameter.length);
     xhttp.open('GET', base + 'menu/all/' + restaurant_id, true)
-    xhttp.setRequestHeader(Authorization, AuthStr)
-        // xhttp.send({ headers: { Authorization: AuthStr } });
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
 
@@ -184,8 +181,8 @@ const delete_menu_by_id_handler = (target, callback) => {
     xhttp = new XMLHttpRequest();
     let parameter = target.substring(target.length - 1, target.length);
     xhttp.open('DELETE', base + 'menu/' + parameter, true);
-    xhttp.setRequestHeader("Authorization", AuthStr)
-        // xhttp.send({ headers: { Authorization: AuthStr } });
+    // xhttp.setRequestHeader("Authorization", AuthStr)
+    xhttp.send({ headers: { Authorization: AuthStr } });
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             callback(this.responseText)
